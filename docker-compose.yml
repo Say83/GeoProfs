@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  # Service voor de PostgreSQL database
+  postgres_db:
+    image: postgres:15-alpine
+    container_name: geoprofs-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mysecretpassword # Moet overeenkomen met de connection string
+      POSTGRES_DB: geoprofs_db
+    ports:
+      - "5432:5432" # Stelt de database poort beschikbaar voor de Codespace
+    volumes:
+      - geoprofs-db-data:/var/lib/postgresql/data # Zorgt ervoor dat data bewaard blijft
+    restart: unless-stopped
+
+  # Optioneel: Service voor PgAdmin, een web-based beheerinterface voor de database
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: geoprofs-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@geoprofs.nl
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80" # Stelt de PgAdmin webinterface beschikbaar op poort 5050
+    depends_on:
+      - postgres_db # Zorgt ervoor dat de database eerst start
+    restart: unless-stopped
+
+volumes:
+  geoprofs-db-data: # Definieert het volume voor data persistentie

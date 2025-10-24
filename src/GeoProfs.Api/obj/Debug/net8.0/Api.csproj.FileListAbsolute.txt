@@ -1,0 +1,8 @@
+/workspaces/GeoProfs/src/GeoProfs.Api/obj/Debug/net8.0/Api.csproj.AssemblyReference.cache
+/workspaces/GeoProfs/src/GeoProfs.Api/obj/Debug/net8.0/Api.GeneratedMSBuildEditorConfig.editorconfig
+/workspaces/GeoProfs/src/GeoProfs.Api/obj/Debug/net8.0/Api.AssemblyInfoInputs.cache
+/workspaces/GeoProfs/src/GeoProfs.Api/obj/Debug/net8.0/Api.AssemblyInfo.cs
+/workspaces/GeoProfs/src/GeoProfs.Api/obj/Debug/net8.0/Api.csproj.CoreCompileInputs.cache
+/workspaces/GeoProfs/src/GeoProfs.Api/obj/Debug/net8.0/Api.MvcApplicationPartsAssemblyInfo.cs
+/workspaces/GeoProfs/src/GeoProfs.Api/obj/Debug/net8.0/Api.MvcApplicationPartsAssemblyInfo.cache
+/workspaces/GeoProfs/src/GeoProfs.Api/obj/Debug/net8.0/Api.sourcelink.json
