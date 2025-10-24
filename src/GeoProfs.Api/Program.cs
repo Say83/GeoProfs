@@ -5,6 +5,7 @@ using GeoProfs.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Text;
 
@@ -13,12 +14,14 @@ var builder = WebApplication.CreateBuilder(args);
 // --- 1. Service Registratie (Dependency Injection) ---
 
 // Voeg de DbContext toe en configureer de PostgreSQL-verbinding.
-// De connection string wordt uit appsettings.json gehaald.
 builder.Services.AddDbContext<GeoProfsDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// BELANGRIJKE FIX: Registreer de DbContext ook voor de IGeoProfsDbContext interface.
+// Dit is waarschijnlijk de oorzaak van de buildfout.
+builder.Services.AddScoped<IGeoProfsDbContext>(provider => provider.GetRequiredService<GeoProfsDbContext>());
+
 // Registreer de repositories.
-// Wanneer een class een ILeaveRequestRepository vraagt, krijgt het een LeaveRequestRepository.
 builder.Services.AddScoped<ILeaveRequestRepository, LeaveRequestRepository>();
 builder.Services.AddScoped<ILeaveBalanceRepository, LeaveBalanceRepository>();
 
@@ -28,12 +31,36 @@ builder.Services.AddTransient<IEmailService, EmailService>();
 // Voeg MediatR toe en laat het de handlers scannen in de Application assembly.
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.Load("GeoProfs.Application")));
 
-// Voeg controllers en Swagger/OpenAPI toe.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+
+// FIX: Voeg Swagger-configuratie toe voor het gebruik van JWT-tokens in de UI.
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new() { Title = "GeoProfs API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "GeoProfs API", Version = "v1" });
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Please enter a valid token",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        BearerFormat = "JWT",
+        Scheme = "Bearer"
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[]{}
+        }
+    });
 });
 
 // --- 2. Authenticatie Configuratie (JWT) ---
@@ -56,8 +83,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 var app = builder.Build();
 
 // --- 3. Middleware Pipeline ---
-
-// Gebruik Swagger in development voor API-testen.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -65,11 +90,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-// Belangrijk: Authenticatie en Autorisatie moeten in de juiste volgorde staan.
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
