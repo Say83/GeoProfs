@@ -16,7 +16,7 @@ namespace GeoProfs.Domain.Entities
         public DateTime CreatedAt { get; private set; }
 
         // Private constructor voor ORM (Entity Framework).
-        private LeaveRequest() {}
+        private LeaveRequest() { Reason = null!; }
 
         // Publieke constructor om een nieuwe, valide aanvraag te creëren.
         public LeaveRequest(Guid userId, DateTime startDate, DateTime endDate, LeaveType type, string reason)

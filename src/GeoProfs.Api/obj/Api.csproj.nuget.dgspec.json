@@ -50,10 +50,6 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
-            "MediatR.Extensions.Microsoft.DependencyInjection": {
-              "target": "Package",
-              "version": "[11.1.0, )"
-            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[8.0.18, )"
@@ -131,7 +127,11 @@
           "dependencies": {
             "MediatR": {
               "target": "Package",
-              "version": "[13.1.0, )"
+              "version": "[12.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.10, )"
             }
           },
           "imports": [

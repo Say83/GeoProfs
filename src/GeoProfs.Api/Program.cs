@@ -29,7 +29,7 @@ builder.Services.AddScoped<ILeaveBalanceRepository, LeaveBalanceRepository>();
 builder.Services.AddTransient<IEmailService, EmailService>();
 
 // Voeg MediatR toe en laat het de handlers scannen in de Application assembly.
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.Load("GeoProfs.Application")));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.Load("GeoProfs.Application")));
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

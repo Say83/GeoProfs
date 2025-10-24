@@ -1,0 +1,12 @@
+/workspaces/GeoProfs/src/GeoProfs.Domain/bin/Debug/net8.0/Domain.deps.json
+/workspaces/GeoProfs/src/GeoProfs.Domain/bin/Debug/net8.0/Domain.dll
+/workspaces/GeoProfs/src/GeoProfs.Domain/bin/Debug/net8.0/Domain.pdb
+/workspaces/GeoProfs/src/GeoProfs.Domain/obj/Debug/net8.0/Domain.GeneratedMSBuildEditorConfig.editorconfig
+/workspaces/GeoProfs/src/GeoProfs.Domain/obj/Debug/net8.0/Domain.AssemblyInfoInputs.cache
+/workspaces/GeoProfs/src/GeoProfs.Domain/obj/Debug/net8.0/Domain.AssemblyInfo.cs
+/workspaces/GeoProfs/src/GeoProfs.Domain/obj/Debug/net8.0/Domain.csproj.CoreCompileInputs.cache
+/workspaces/GeoProfs/src/GeoProfs.Domain/obj/Debug/net8.0/Domain.sourcelink.json
+/workspaces/GeoProfs/src/GeoProfs.Domain/obj/Debug/net8.0/Domain.dll
+/workspaces/GeoProfs/src/GeoProfs.Domain/obj/Debug/net8.0/refint/Domain.dll
+/workspaces/GeoProfs/src/GeoProfs.Domain/obj/Debug/net8.0/Domain.pdb
+/workspaces/GeoProfs/src/GeoProfs.Domain/obj/Debug/net8.0/ref/Domain.dll
